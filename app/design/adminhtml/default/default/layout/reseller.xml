@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+    <layout version="0.1.0">
+    <reseller_adminhtml_reselleraddress_index>
+    <reference name="content">
+    <block type="reseller/adminhtml_reselleraddress" name="reselleraddress" />
+    </reference>
+    </reseller_adminhtml_reselleraddress_index>
+	<reseller_adminhtml_reseller_index>
+    <reference name="content">
+    <block type="reseller/adminhtml_reseller" name="reseller" />
+    </reference>
+    </reseller_adminhtml_reseller_index>
+    </layout>
+

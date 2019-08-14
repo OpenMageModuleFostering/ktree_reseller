@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Ktree_Reseller>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Ktree_Reseller>
+    </modules>
+</config>

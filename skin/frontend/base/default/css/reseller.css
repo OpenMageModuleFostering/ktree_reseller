@@ -1,0 +1,132 @@
+.resellers_title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-right: 20px;
+    padding-top: 10px;
+}
+.res {
+    padding-bottom: 7px;
+}
+
+.list-left-bg {
+    background: url("../images/left-bg-list.png") no-repeat scroll 0 0 transparent;
+    height: 28px;
+    padding-left: 5px;
+}
+.list-mid-bg {
+    background: url("../images/mid-list.png") repeat-x scroll 0 0 transparent;
+    height: 28px;
+    line-height: 25px;
+}
+
+.filter .form-row {
+    display: block;
+    float: left;
+    margin-right: 20px;
+}
+.filter label {
+    float: left;
+    font-size: 14px;
+    margin: 0 6px 0 0;
+}
+
+.filter .form-field {
+    float: left;
+}
+
+.filter .form-row {
+    display: block;
+    float: left;
+    margin-right: 20px;
+}
+
+.filter label {
+    float: left;
+    font-size: 14px;
+    margin: 0 6px 0 0;
+}
+.filter .form-field {
+    float: left;
+}
+.error {
+    color: #DF280A;
+    font-weight: bold;
+}
+
+select {
+    padding: 3px;
+}
+input.input-text, select, textarea {
+    border: 1px solid #B6B6B6;
+}
+input, select, textarea, button {
+    color: #404040;
+    font: 12px/15px Arial,Helvetica,sans-serif;
+    vertical-align: middle;
+}
+
+.reseller_con {
+    float: left;
+    width: 964px;
+}
+.reseller_r, .reseller_l {
+    float: right;
+    width: 100%;
+	padding-top:5%;
+	padding-bottom:5%;
+}
+
+.reseller_image {
+    float: left;
+    padding-bottom: 20px;
+    padding-right: 5px;
+    width: 22%;
+}
+ .pagention {
+   float: left;
+   width: 735px;
+}
+.pagention a, .pagention span {
+   background: none repeat scroll 0 0 #EEEEEE;
+   float: left;
+   margin-left: 3px;
+   padding: 5px 13px;
+}
+.pagention a, .pagention span {
+   background: none repeat scroll 0 0 #EEEEEE;
+   float: left;
+   margin-left: 3px;
+   padding: 5px 13px;
+}
+.pagention span {
+   background: none repeat scroll 0 0 #1E7EC8 !important;
+   color: #FFFFFF;
+}
+.pagention a, .pagention span {
+   background: none repeat scroll 0 0 #EEEEEE;
+   float: left;
+   margin-left: 3px;
+   padding: 5px 13px;
+}
+.reseller_text1,.reseller-description{
+float:left;
+ width: 22%;
+}
+.reseller_textaddress {
+ 
+ float: left;
+ padding-left:5%;
+}
+/*==================== ADD CSS =======================*/
+.view-website img  { padding-top: 3px; padding-right: 20px;}
+.resellermail-us, .resellercall-us{ line-height:33px;}
+.mail-im, .call-im {padding-top: 11px;  float: left;}
+.mail-im img{ margin-top:12px; padding-right:20px;}
+.call-im img{ margin-left:2px; margin-top:7px; padding-right:20px;}
+.pagention a {text-decoration: none;}
+    
+    
+   
+
+   
+    

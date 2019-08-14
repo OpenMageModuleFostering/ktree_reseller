@@ -1,0 +1,203 @@
+<?php
+$region  = $this->getRequest()->getParam('region');
+				$service  = $this->getRequest()->getParam('service');
+
+?>
+<script type="text/javascript">
+
+jQuery(document).ready(function(){
+
+jQuery(".regionstate").change(function(){
+  var reseller_region  = jQuery("#region").val();
+ var url1 = "reseller/index/statedropdown";
+jQuery.ajax({
+         	 url: url1,
+data:{region: reseller_region },
+success: function(html){
+
+           //jQuery("#state_div").hide();
+                    jQuery("#state").html(html);
+                      }
+            });
+});
+
+ jQuery("#region,#service,#state").change(function(){
+ 
+ 
+   var reseller_region  = jQuery("#region").val();
+   var reseller_service = jQuery("#service").val();
+   var reseller_state = jQuery("#state").val();
+   var url              =  "reseller/index/searchReseller";
+     jQuery('#ajax_loader').show();
+    
+        if(reseller_region == "0" && reseller_service == "0")
+        {
+         jQuery('#ajax_loader').hide();
+         jQuery("#show_total").show();
+         jQuery("#show_result").hide();
+        }else{
+    	jQuery.ajax({
+         	 url: url,
+         	// datatype:"json",
+          	data:{ region: reseller_region, service: reseller_service, state: reseller_state},
+          	success: function(html){
+                   jQuery('#ajax_loader').hide();
+                    jQuery("#show_total").hide();
+                    jQuery("#show_result").html(html).show();
+                    
+          	}
+  
+   	 });}
+    
+  });
+  
+});
+</script>
+<div class="std resellers_container">
+<?php 
+	$count=0;
+$currentPage = (int) $this->getRequest()->getParam('p', 1);
+//$currentPage = $_GET['p'];
+$pageSize =Mage::getStoreConfig('reseller/reseller_group/reseller_input');
+?>
+    <h1 class="resellers_title"><?php echo $this->__("Resellers"); ?></h1>
+	   <div class="filter_bar">
+<div class="list-left-bg">
+<div class="list-mid-bg">
+        <div class="filter">
+             <form action="" id="filter-form">
+                <div class="form-row">
+                   <label for="region">Country</label>
+                   <div class="form-field"><div class="error"></div>
+				  <?php echo $this->helper('reseller/data')->countrydropdown();  ?> 
+                    <div class="help"></div>
+                 </div>
+ 
+                </div>
+		 <div class="form-row">
+ <label for="states">State</label>
+ <div class="form-field"><div class="error"></div>
+       <div  id="state_div">
+	   <select name="state" id="state">
+        <option value="0" selected="selected">All States</option>
+        </select>
+</div>
+<div class="state2" id="state_div_ajax" style="display:none"></div>
+<div class="help"></div>
+                   </div>
+   </div>		
+                <div class="form-row">
+                   <label for="service">Service</label>
+                   <div class="form-field"><div class="error"></div>
+                        <select name="service" id="service">
+                              <option value="0" selected="selected">All services</option>
+                              <option value="Installation">Installation</option>
+                              <option value="Training">Training</option>
+                              <option value="Hardware">Hardware</option>
+                              <option value="Repair">Repair</option>
+                       </select>
+                       <div class="help"></div>
+                   </div>
+              </div>
+              
+          </form>
+       </div><!-- end of filter div-->
+	   </div>
+	   </div>
+	   <div class="list-right-bg"></div>
+   </div><!-- end of filter-bar div-->
+   <br>
+   <div id='ajax_loader' style='display:none' align="center"><img src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>'/></div>
+   <div id="show_result" style="disply:none">
+      
+   </div>
+   <!-- coded by samanta ends here-->
+   <div class="reseller_con">
+    <div class="resellers" id="show_total">
+    <?php //$resellers = Mage::getModel('reseller/reseller_reseller')->getCollection()->getData(); 
+$currentStoreId = Mage::app()->getStore()->getId();
+ $read= Mage::getSingleton('core/resource')->getConnection('core_read');
+				    $value=$read->query("SELECT * FROM reseller_reseller INNER JOIN reseller_reselleraddress ON reseller_reseller.id=reseller_reselleraddress.reseller_id where store_id LIKE '".$currentStoreId.",%' 
+	                                       OR store_id LIKE '%,".$currentStoreId."'
+	                                       OR store_id LIKE '%,".$currentStoreId.",%'
+	                                       OR store_id LIKE '".$currentStoreId."'"); 
+					$resellers = $value->fetchAll(); 
+//print_r($resellers);
+?>
+    <?php $i = 0;?>
+    <?php if (count($resellers) > 0): $resellercount=0; ?>
+    <?php foreach ($resellers as $reseller): 
+  $currentStoreId = Mage::app()->getStore()->getId();
+
+$value1=$read->query("SELECT * FROM reseller_reselleraddress where reseller_id=".$reseller['id']); 
+					$reseller1 = $value1->fetchAll(); 
+//echo $reseller1[0]['id'];
+  $item = Mage::getModel('reseller/reseller_reselleraddress')->load($reseller1[0]['id']);
+
+  $itemStores = $item->getStoreId();
+  $stores = explode(',', $itemStores);
+  //if(in_array($currentStoreId, $stores) || in_array(0, $stores)) { 
+	 $count=$count+1;
+	if(($currentPage-1)*$pageSize<$count && $count<=$currentPage*$pageSize){
+	if($count<=$currentPage*$pageSize){ ?>
+	<div class="reseller_<?php $i++; echo (is_int($i/2) ? "r" : "l")?>">
+	    <?php if ($reseller['reseller_img']) { ?>
+	    <div class="reseller_image"><img alt="<?php echo $reseller['reseller_img']; ?>" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA). $reseller['reseller_img']?>" height="155" width="150" /></div>
+	    <?php } else { ?>
+		<div class="reseller_image"><img alt="<?php echo $reseller['reseller_name']; ?>" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) ?>frontend/base/default/images/catalog/product/placeholder/image.jpg" height="155" width="150"/></div>
+		<?php } ?>
+	    <div class="reseller_text1">
+		<h2><?php echo $reseller['reseller_name']; ?></h2></div>
+		
+		
+		<div class="reseller-description">
+		<?php $servicesid=$reseller['reseller_services']; ?>
+		<?php //$arr=explode( ',', $servicesid );  
+		      echo $servicesid;
+		?>
+		
+		<?php echo $reseller['reseller_description']; ?>
+		<?php 
+			  $countryCode=$reseller['reseller_country'];
+$countryName = Mage::getModel('directory/country')->load($countryCode)->getName();
+			  ?><br>
+		<?php echo $reseller['reseller_region']." , ".$reseller['reseller_city']." , ".$reseller['reseller_state']; echo "  ,  "; echo $countryName; ?><br>
+		
+		
+		</div>
+		<div class="clear"></div>
+		<div class="reseller_textaddress">
+			  
+		<span class="view-website"><img src='<?php echo $this->getSkinUrl('images/view.png')?>'/><a href="http://<?php echo $reseller['reseller_website'];?>">View Website</a> </span>
+		<br><span class="mail-im"><img src='<?php echo $this->getSkinUrl('images/mail.png')?>'/><span class="resellermail-us"><a href="mailto:<?php echo $reseller['reseller_email'];?>"><?php echo $reseller['reseller_email'];?></a></span></span>
+		<br><span class="call-im"><img src='<?php echo $this->getSkinUrl('images/call.png')?>'/><span class="resellercall-us"><?php echo $reseller['reseller_phone'];?></span></span>
+		    <?php //echo $reseller->getResellerServices();
+		   $resellercount++;
+		    ?>
+	    </div>
+	</div>
+    <?php } }  endforeach; ?>
+	
+<?php if($count == 0 ) {echo "No Records Found , Try Again "; } ?>
+	
+    <?php endif;?>
+	<?php $pageTot = ceil( $count / $pageSize );
+
+?>
+<!-- Pagenation -->
+<div class='pagention'>
+    <?php for ( $i=1; $i<=$pageTot; $i++ ) : ?>
+        <?php if ( $i == $currentPage ) : ?><?php echo "<span>$i</span>"; ?><?php else : ?><a href="#" onclick="resellers('0','0','<?php echo $i ?>','0')"><?php  echo $i ?></a><?php endif; ?>
+    <?php endfor; ?>
+	
+</div> 
+
+<!-- End Pagenation -->	
+    </div>
+
+</div>
+</div>
+
+
+
+

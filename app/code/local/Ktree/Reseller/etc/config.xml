@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Ktree_Reseller>
+            <version>0.1.0</version>
+        </Ktree_Reseller>
+    </modules>
+    <frontend>
+        <routers>
+            <reseller>
+                <use>standard</use>
+                <args>
+                    <module>Ktree_Reseller</module>
+                    <frontName>reseller</frontName>
+                </args>
+            </reseller>
+        </routers>
+        <layout>
+            <updates>
+                <reseller>
+                    <file>reseller.xml</file>
+                </reseller>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+            <reseller>
+                <use>admin</use>
+                <args>
+                    <module>Ktree_Reseller</module>
+                    <frontName>reseller</frontName>
+                </args>
+            </reseller>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <reseller module="reseller">
+                <title>Reseller</title>
+                <sort_order>77</sort_order>
+                <children>
+                    
+					<reselleraddress module="reseller">
+                        <title> Manage Reselleraddress  </title>
+                        <sort_order>0</sort_order>
+                        <action>reseller/adminhtml_reselleraddress</action>
+                    </reselleraddress>
+					<reseller module="reseller">
+                        <title> Manage Reseller  </title>
+                        <sort_order>0</sort_order>
+                        <action>reseller/adminhtml_reseller</action>
+                    </reseller>
+                </children>
+            </reseller>
+        </menu>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <Ktree_Reseller>
+                            <title>Reseller Module</title>
+                            <sort_order>10</sort_order>
+                        </Ktree_Reseller>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <layout>
+            <updates>
+                <reseller>
+                    <file>reseller.xml</file>
+                </reseller>
+            </updates>
+        </layout>
+    </adminhtml>
+    <global>
+        <models>
+            <reseller>
+                <class>Ktree_Reseller_Model</class>
+                <resourceModel>reseller_mysql4</resourceModel>
+            </reseller>
+			<reseller_volumedata>Ktree_Reseller_Model__Volumedata</reseller_volumedata>
+            <reseller_mysql4>
+                <class>Ktree_Reseller_Model_Mysql4</class>
+                <entities>
+                    
+					<reseller_reselleraddress>
+                        <table>reseller_reselleraddress</table>
+                    </reseller_reselleraddress>
+					<reseller_reseller>
+                        <table>reseller_reseller</table>
+                    </reseller_reseller>
+                </entities>
+            </reseller_mysql4>
+			<reseller_adminhtml>
+        <class>Ktree_Reseller_Model_Adminhtml</class>
+      </reseller_adminhtml>
+        </models>
+        <resources>
+            <reseller_setup>
+                <setup>
+                    <module>Ktree_Reseller</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </reseller_setup>
+            <reseller_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </reseller_write>
+            <reseller_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </reseller_read>
+        </resources>
+        <blocks>
+            <reseller>
+                <class>Ktree_Reseller_Block</class>
+            </reseller>
+        </blocks>
+        <helpers>
+            <reseller>
+                <class>Ktree_Reseller_Helper</class>
+            </reseller>
+        </helpers>
+    </global>
+	<default>
+ <reseller>
+      <reseller_group>
+     
+      <reseller_input>5</reseller_input> <!-- set default email address -->
+      </reseller_group>
+   </reseller>
+</default>
+</config>
