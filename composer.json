@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Ktree_Reseller",
+    "name": "OpenMageModuleFostering\/Ktree_Reseller",
     "type": "magento-module",
     "license": "AFL",
     "homepage": "",
     "description": "Ktree Reseller Extension",
     "authors": [
-    {
-        "name": "Ktree",
-        "email": "alma.rajkumar@goktree.com"
-    }
-],
+        {
+            "name": "Ktree",
+            "email": "alma.rajkumar@goktree.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
